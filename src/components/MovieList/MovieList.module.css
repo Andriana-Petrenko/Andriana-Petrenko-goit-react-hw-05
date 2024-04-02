@@ -1,0 +1,13 @@
+.movies_list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:10px;
+
+}
+
+.movie_link{
+    font-size: 18px;
+    text-decoration: none;
+    
+}

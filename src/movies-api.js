@@ -10,7 +10,7 @@ export async function fetchTrendingMovies() {
       accept: 'application/json'
 }
   };
- await axios.get(url, options)
-.then(response => console.log(response))
-.catch(err => console.error(err));
+  const response = await axios.get(url, options);
+  const data = response.data.results;
+  return data;
 }
