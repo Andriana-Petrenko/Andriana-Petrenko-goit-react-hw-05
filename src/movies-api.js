@@ -20,6 +20,22 @@ export async function fetchTrendingMovies() {
 export async function fetchMovieDetailsById(movieId) {
   const url = `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`;
   const response = await axios.get(url, options);
-  const {title,genres,overview,vote_average,backdrop_path} = response.data;
-  return {title,genres,overview,vote_average,backdrop_path};
+  const movieDetailsById = response.data;
+  return movieDetailsById;
+}
+
+  export async function fetchMovieCast(movieId) {
+  const url = `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`;
+  const response = await axios.get(url, options);
+  const movieCasts = response.data.cast;
+  return movieCasts;
+}
+
+
+
+  export async function fetchMovieReviews(movieId) {
+  const url = `https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US`;
+  const response = await axios.get(url, options);
+  const movieReviews = response.data.results;
+  return movieReviews;
 }

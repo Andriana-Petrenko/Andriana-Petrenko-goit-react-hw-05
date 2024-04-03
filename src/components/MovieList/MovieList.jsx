@@ -9,8 +9,6 @@ const MovieList = ({trendingMovies}) => {
                   <Link to={`/movies/${movieId}`} className={css.movie_link}>{movie.title}</Link>    
               </li>)        
       })}
-          
-          
       </ul>
   )
 }
