@@ -3,11 +3,14 @@ import css from "./MovieList.module.css"
 const MovieList = ({trendingMovies}) => {
   return (
       <ul className={css.movies_list}>{trendingMovies.map(movie => {
+          const movieId = movie.id;
           return (
-              <li key={movie.id} >
-                  <Link className={css.movie_link}>{movie.title}</Link>
+              <li className={css.movie_item} key={movieId} >
+                  <Link to={`/movies/${movieId}`} className={css.movie_link}>{movie.title}</Link>    
               </li>)        
       })}
+          
+          
       </ul>
   )
 }
