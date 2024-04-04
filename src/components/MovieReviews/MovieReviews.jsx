@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieReviews } from "../../movies-api";
-
+import css from "./MovieReviews.module.css"
 
 const MovieReviews = () => {
   const { movieId } = useParams();
-    const [movieReviews, setMovieReviews] = useState([]);
+    const [movieReviews, setMovieReviews] = useState(null);
 useEffect(() => {
         async function fetchCast() {
             try {
@@ -25,21 +25,21 @@ useEffect(() => {
         }
         fetchCast();
     }, [movieId])
-    if (movieReviews.length === 0) { return <div>There are no reviews</div> }
-        return (
+    if (movieReviews!== null) {return (
       <div>
-          <ul>{movieReviews.map(review => {
+          <ul className={css.review_list}>{movieReviews.map(review => {
               return (
                <li key={review.id}>
-                  
-                  <p>Author: {review.author}</p>
-                  <p>Character {review.content }</p>
+                  <p className={css.author}>Author: {review.author}</p>
+                  <p>{review.content }</p>
               </li>   
               )
           })}              
           </ul>
     </div>
-  )
+    )  }
+        
+    // return (<div>There are no reviews</div>)
 }
 
 export default MovieReviews

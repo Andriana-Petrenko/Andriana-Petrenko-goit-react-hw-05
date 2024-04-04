@@ -16,7 +16,6 @@ export async function fetchTrendingMovies() {
   return data;
 }
 
-
 export async function fetchMovieDetailsById(movieId) {
   const url = `https://api.themoviedb.org/3/movie/${movieId}?language=en-US`;
   const response = await axios.get(url, options);
@@ -31,11 +30,18 @@ export async function fetchMovieDetailsById(movieId) {
   return movieCasts;
 }
 
-
-
   export async function fetchMovieReviews(movieId) {
   const url = `https://api.themoviedb.org/3/movie/${movieId}/reviews?language=en-US`;
   const response = await axios.get(url, options);
   const movieReviews = response.data.results;
+  return movieReviews;
+}
+
+
+    export async function fetchMovieSearch(inputSearch) {
+  const url = `https://api.themoviedb.org/3/search/movie?query=${inputSearch}&include_adult=false&language=en-US&page=1`;
+  const response = await axios.get(url, options);
+      const movieReviews = response.data.results;
+      console.log(movieReviews);
   return movieReviews;
 }
