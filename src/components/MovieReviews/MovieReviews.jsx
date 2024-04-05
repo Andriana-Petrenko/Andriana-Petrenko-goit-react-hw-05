@@ -5,7 +5,7 @@ import css from "./MovieReviews.module.css"
 
 const MovieReviews = () => {
   const { movieId } = useParams();
-    const [movieReviews, setMovieReviews] = useState(null);
+    const [movie, setMovieReviews] = useState(null);
 useEffect(() => {
         async function fetchCast() {
             try {
@@ -25,9 +25,9 @@ useEffect(() => {
         }
         fetchCast();
     }, [movieId])
-    if (movieReviews!== null) {return (
+    if (movie!== null) {return (
       <div>
-          <ul className={css.review_list}>{movieReviews.map(review => {
+          <ul className={css.review_list}>{movie.map(review => {
               return (
                <li key={review.id}>
                   <p className={css.author}>Author: {review.author}</p>
@@ -39,7 +39,7 @@ useEffect(() => {
     </div>
     )  }
         
-    // return (<div>There are no reviews</div>)
+//  if (movie=== null) return (<div>There are no reviews</div>)
 }
 
 export default MovieReviews

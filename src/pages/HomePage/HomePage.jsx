@@ -4,7 +4,8 @@ import css from "./HomePage.module.css"
 import MovieList from "../../components/MovieList/MovieList";
 
 const HomePage = () => {
-    const [trendingMovies, setMovies] = useState([]);
+    const [trendingMovies, setMovies] = useState(null);
+    // const [showBtn, setShowBtn] = useState(false);
     useEffect(() => {
     async function fetchMovies()  {
     try {
@@ -12,7 +13,7 @@ const HomePage = () => {
     //   setError(false);
       const trendingMovies=await fetchTrendingMovies();
     setMovies(trendingMovies);
-      console.log(trendingMovies);
+
     //   setShowBtn(total_pages > page);
     } catch (error) {
         //   setError(true)
@@ -24,12 +25,14 @@ const HomePage = () => {
   fetchMovies();
     
 }, [])
-  return (
+   if (trendingMovies !== null) {
+    return (
       <section className={css.home_section}>
           <h1 className={css.home_title}>Tranding today</h1>
           <MovieList trendingMovies={trendingMovies} />
       </section>
   )
+   } 
 }
 
 export default HomePage

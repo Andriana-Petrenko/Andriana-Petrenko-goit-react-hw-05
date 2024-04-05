@@ -13,7 +13,7 @@ const activeLink = ({ isActive }) => {
 
 const MovieDetailsPage = () => {
     const { movieId } = useParams();
-    const [movie, setMovieDetails] = useState([]);
+    const [movie, setMovieDetails] = useState(null);
     const location = useLocation();
     const backLink=useRef(location.state ?? "/")
     

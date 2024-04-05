@@ -2,7 +2,7 @@ import { Link, useLocation } from "react-router-dom"
 import css from "./MovieList.module.css"
 const MovieList = ({ trendingMovies }) => {
     const location = useLocation();
-  return (
+     return (
       <ul className={css.movies_list}>{trendingMovies.map(movie => {
           const movieId = movie.id;
           return (
@@ -11,6 +11,6 @@ const MovieList = ({ trendingMovies }) => {
               </li>)        
       })}
       </ul>
-  )
-}
+  )}
+ 
 export default MovieList
