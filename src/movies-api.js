@@ -9,10 +9,10 @@ const options = {
   }
 };
 
-export async function fetchTrendingMovies() {
-  const url = 'https://api.themoviedb.org/3/trending/movie/day?language=en-US';
+export async function fetchTrendingMovies(page) {
+  const url = `https://api.themoviedb.org/3/trending/movie/day?language=en-US&page=${page}`;
   const response = await axios.get(url, options);
-  const data = response.data.results;
+  const data = response.data;
   console.log(response);
   return data;
 }

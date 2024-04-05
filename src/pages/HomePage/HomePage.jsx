@@ -2,34 +2,41 @@ import { useEffect, useState } from "react";
 import { fetchTrendingMovies } from "../../movies-api"
 import css from "./HomePage.module.css"
 import MovieList from "../../components/MovieList/MovieList";
+import LoadMoreBtn from "../../components/LoadMoreBtn/LoadMoreBtn";
+import Error from "../../components/Error/Error";
 
 const HomePage = () => {
-    const [trendingMovies, setMovies] = useState(null);
-    // const [showBtn, setShowBtn] = useState(false);
+    const [trendingMovies, setMovies] = useState([]);
+    const [page, setPage] = useState(1);
+    const [showBtn, setShowBtn] = useState(false);
+    const [error, setError] = useState(false);
+
+
     useEffect(() => {
     async function fetchMovies()  {
-    try {
-    //   setLoading(true);
-    //   setError(false);
-      const trendingMovies=await fetchTrendingMovies();
-    setMovies(trendingMovies);
-
-    //   setShowBtn(total_pages > page);
+      try {
+        setError(false);
+        const { total_pages, results } = await fetchTrendingMovies(page);
+        setMovies((prevMovies) => [...prevMovies, ...results]);
+        setShowBtn(total_pages > page);
     } catch (error) {
-        //   setError(true)
-        console.log(error);
-    } finally {
-    //   setLoading(false);
+      setError(true)
+    } 
       }
-    }
-  fetchMovies();
-    
-}, [])
+      fetchMovies();
+    }, [page])
+  
+  const onClickButton = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+  
    if (trendingMovies !== null) {
     return (
       <section className={css.home_section}>
           <h1 className={css.home_title}>Tranding today</h1>
-          <MovieList trendingMovies={trendingMovies} />
+          {error && <Error />}
+        <MovieList trendingMovies={trendingMovies} />
+        {showBtn && <LoadMoreBtn onClickButton={onClickButton} />}
       </section>
   )
    } 

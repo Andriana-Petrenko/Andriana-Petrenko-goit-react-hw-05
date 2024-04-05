@@ -73,3 +73,8 @@ transform: scale(1.04);
     color: rgb(45, 146, 27);
     transform: scale(1.04);
 }
+
+.genres_list{
+    display: flex;
+    gap:10px;
+}

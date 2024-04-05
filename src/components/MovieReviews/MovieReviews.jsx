@@ -2,31 +2,29 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { fetchMovieReviews } from "../../movies-api";
 import css from "./MovieReviews.module.css"
+import Error from "../Error/Error";
 
 const MovieReviews = () => {
-  const { movieId } = useParams();
-    const [movie, setMovieReviews] = useState(null);
-useEffect(() => {
+    const { movieId } = useParams();
+    const [movie, setMovieReviews] = useState([]);
+    const [error, setError] = useState(false);
+    useEffect(() => {
         async function fetchCast() {
             try {
-                //   setLoading(true);
-                //   setError(false);
+                 setError(false);
                 const movieReviews = await fetchMovieReviews(movieId);
                 setMovieReviews(movieReviews);
-            console.log(movieReviews);
-                // console.log({ title, genres, overview, vote_average, backdrop_path });
-                //   setShowBtn(total_pages > page);
+        
             } catch (error) {
-                //   setError(true)
-                console.log(error);
-            } finally {
-                //   setLoading(false);
-            }
+              setError(true)
+            } 
         }
         fetchCast();
     }, [movieId])
-    if (movie!== null) {return (
-      <div>
+    if (movie.length!==0) {
+        return (
+            <div>
+                {error && <Error />}
           <ul className={css.review_list}>{movie.map(review => {
               return (
                <li key={review.id}>
@@ -37,9 +35,8 @@ useEffect(() => {
           })}              
           </ul>
     </div>
-    )  }
-        
-//  if (movie=== null) return (<div>There are no reviews</div>)
+    )  } else{return(<div>There are no reviews</div>)}
+ 
 }
 
 export default MovieReviews
