@@ -1,7 +1,5 @@
 import axios from "axios";
 
-// Три ЗАПИТИ МАЄ БУТИ
-
 const options = {
   headers: {
     accept: 'application/json',
@@ -13,7 +11,6 @@ export async function fetchTrendingMovies(page) {
   const url = `https://api.themoviedb.org/3/trending/movie/day?language=en-US&page=${page}`;
   const response = await axios.get(url, options);
   const data = response.data;
-  console.log(response);
   return data;
 }
 
@@ -43,6 +40,5 @@ export async function fetchMovieDetailsById(movieId) {
   const url = `https://api.themoviedb.org/3/search/movie?query=${inputSearch}&include_adult=false&language=en-US&page=${page}`;
   const response = await axios.get(url, options);
       const movieReviews = response.data;
-      console.log(movieReviews);
   return movieReviews;
 }

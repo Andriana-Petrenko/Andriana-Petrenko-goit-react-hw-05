@@ -6,7 +6,7 @@ import Error from "../Error/Error";
 
 const MovieReviews = () => {
     const { movieId } = useParams();
-    const [movie, setMovieReviews] = useState([]);
+    const [movie, setMovieReviews] = useState(null);
     const [error, setError] = useState(false);
     useEffect(() => {
         async function fetchCast() {
@@ -14,29 +14,26 @@ const MovieReviews = () => {
                  setError(false);
                 const movieReviews = await fetchMovieReviews(movieId);
                 setMovieReviews(movieReviews);
-        
             } catch (error) {
               setError(true)
             } 
         }
         fetchCast();
     }, [movieId])
-    if (movie.length!==0) {
-        return (
-            <div>
-                {error && <Error />}
-          <ul className={css.review_list}>{movie.map(review => {
+    if (movie !== null){return (
+      <> {movie.length===0? <div>There are no reviews</div>:<ul className={css.review_list}>{movie.map(review => {
               return (
-               <li key={review.id}>
+               <li key={review.id} className={css.cast_item}>
                   <p className={css.author}>Author: {review.author}</p>
                   <p>{review.content }</p>
               </li>   
               )
-          })}              
-          </ul>
-    </div>
-    )  } else{return(<div>There are no reviews</div>)}
- 
+          })}
+              
+        </ul> }
+        {error && <Error />}
+    </>
+  )}
 }
 
 export default MovieReviews
